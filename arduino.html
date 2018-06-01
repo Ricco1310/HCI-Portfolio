@@ -72,14 +72,9 @@
     <section class="mainPageSection">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <h1 class="font-weight-bold">Assignments</h1>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-12">
                     <h1 class="font-weight-bold text-center">Assignments</h1>
-                    <a href="downloads/Workshop1.rar">
+                    <a href="downloads/arduino.rar"></a>
                         <p class="text-center">Download source files here</p>
                     </a>
                 </div>
@@ -92,36 +87,31 @@
                         </div>
                         <div class="card-body">
                             <pre class="pre-scrollable">
-                                <code>
-void settings() {
-  size(640, 480, P2D);
-}
-
+                                <code>                             
+// the setup function runs once when you press reset or power the board
 void setup() {
-  
+// initialize digital pin LED_BUILTIN as an output.
+    pinMode(LED_BUILTIN, OUTPUT);
+    pinMode(12, OUTPUT);
 }
 
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
+// the loop function runs over and over again forever
+void loop() {
+    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+    digitalWrite(12, HIGH);
+    delay(500);                       // wait for a second
+
+    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+    delay(500);                       // wait for a second  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+
+    digitalWrite(LED_BUILTIN, HIGH);
+    digitalWrite(12, LOW);
+    delay(500);                       // wait for a second
+
+    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+    delay(500);                       // wait for a second
 }
+                                    
                                 </code>
                             </pre>
                         </div>
@@ -147,34 +137,22 @@ void draw() {
                             <pre class="pre-scrollable">
                                 <code>
 void settings() {
-  size(640, 480, P2D);
+    int gLP = 10;
+    int yLP = 9;
 }
-
+    
 void setup() {
-  
+    pinMode(gLP, OUTPUT);
+    pinMode(yLP, OUTPUT);
 }
 
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
-}
+void loop() {
+    for (int brightness=0; brightness <256; brightness++){
+        analogWrite(gLP, brightness);
+        analogWrite(yLP, (255-brightness));
+        delay(10);
+    }
+}   
                                 </code>
                             </pre>
                         </div>
@@ -200,34 +178,30 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
-}
+int greenLed = 10;
+int yellowLed = 9;
+int sensorValue = 0; // variable for sensor value
+int sensorPin = A0; // variable for sensor pin
 
 void setup() {
-  
+    pinMode(greenLed, OUTPUT);
+    pinMode(yellowLed, OUTPUT);
+    pinMode(sensorPin, INPUT);
+    Serial.begin(9600);
 }
 
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
+void loop() {
+    sensorValue = analogRead(sensorPin); // read the value/current on the sensor pin and
+    // store that value in the variable sensorValue
+    Serial.print("sensor = "); // print out the text "sensor = " to the serial
+    // monitor
+    Serial.println(sensorValue); // print out sensorValue to the serial monitor
+
+    analogWrite(greenLed, map(sensorValue, 0, 1023, 0, 255)); // turn on the green LED maximally
+    analogWrite(yellowLed, map(sensorValue, 0, 1023, 255, 0)); // turn on the yellow LED half way
+    
+    
+    delay(200); // delay for 0.2 seconds
 }
                                 </code>
                             </pre>
@@ -253,34 +227,30 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
-}
+int greenLed = 10;
+int yellowLed = 9;
+int sensorValue = 0; // variable for sensor value
+int sensorPin = A0; // variable for sensor pin
 
 void setup() {
-  
+    pinMode(greenLed, OUTPUT);
+    pinMode(yellowLed, OUTPUT);
+    pinMode(sensorPin, INPUT);
+    Serial.begin(9600);
 }
 
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
+void loop() {
+    sensorValue = analogRead(sensorPin); // read the value/current on the sensor pin and
+    // store that value in the variable sensorValue
+    Serial.print("sensor = "); // print out the text "sensor = " to the serial
+    // monitor
+    Serial.println(sensorValue); // print out sensorValue to the serial monitor
+
+    analogWrite(greenLed, map(sensorValue, 550, 880, 0, 255)); // turn on the green LED maximally
+    analogWrite(yellowLed, map(sensorValue, 550, 880, 255, 0)); // turn on the yellow LED half way
+    
+    
+    delay(200); // delay for 0.2 seconds
 }
                                 </code>
                             </pre>
@@ -306,34 +276,66 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
-}
+int greenLed = 10;
+int yellowLed = 9;
+int sensorValue = 0; // variable for sensor value
+int sensorPin = A0; // variable for sensor pin
 
 void setup() {
-  
+    pinMode(greenLed, OUTPUT);
+    pinMode(yellowLed, OUTPUT);
+    pinMode(sensorPin, INPUT);
+    Serial.begin(9600);
+}
+
+void loop() {
+    sensorValue = analogRead(sensorPin); // read the value/current on the sensor pin and
+    // store that value in the variable sensorValue
+    sensorValue = constrain(sensorValue, 550, 880);
+    sensorValue = map(sensorValue, 550, 880, 0, 255);
+    //sensorValue = (sensorValue/1023)*255;
+    //Serial.print("sensor = "); // print out the text "sensor = " to the serial
+    // monitor
+    Serial.println(sensorValue); // print out sensorValue to the serial monitor
+
+    analogWrite(greenLed, sensorValue); // turn on the green LED maximally
+    analogWrite(yellowLed, 255-sensorValue); // turn on the yellow LED half way
+    
+    
+    delay(200); // delay for 0.2 seconds
+}
+                                </code>
+                            </pre>
+                            <pre class="pre-scrollable">
+                                <code>
+import processing.serial.*;
+Serial myPort;
+String sensorReading="";
+PFont font;
+float sensorReadingFloat;
+
+void setup() {
+    size(800, 800);
+    myPort = new Serial(this, Serial.list()[0], 9600); // instead of 5, choose what evenserial port the Arduino connects to
+    myPort.bufferUntil('\n');
+    font = createFont(PFont.list()[2], 16);
+    textFont(font);
+    rectMode(CENTER);
 }
 
 void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
+    sensorReadingFloat = float(sensorReading);
+    background(sensorReadingFloat, sensorReadingFloat,0);
+    fill(0);
+    noStroke();
+    text("Sensor Reading: " + sensorReading, 20, 20);
+    println(sensorReadingFloat);
+    rect(width/2, height/2, sensorReadingFloat, sensorReadingFloat);
+    rotate(sensorReadingFloat);
+}
+
+void serialEvent (Serial myPort) {
+    sensorReading = myPort.readStringUntil('\n');
 }
                                 </code>
                             </pre>
@@ -359,34 +361,27 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
-}
+int ledPin = 13;
+int buttonPinL = 3;
+int buttonPinR = 2;
 
 void setup() {
-  
+    Serial.begin(9600);
+    pinMode(ledPin, OUTPUT);
+    pinMode(buttonPinL, INPUT);
+    pinMode(buttonPinR, INPUT);
 }
-
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
+void loop(){
+    // check if the pushbutton is pressed. If it is, the digitalRead iws HIGH:
+    if ((digitalRead(buttonPinL) == HIGH) ^ (digitalRead(buttonPinR) == HIGH)) {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+    Serial.println("Led on");
+    } else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+    Serial.println("Led off");
+    }
 }
                                 </code>
                             </pre>
@@ -412,35 +407,36 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
-}
+void settings() #include <Servo.h>
+        
+Servo myServo; // Declare a servo object for us to control
+int servoPin = 9; // Var for the pin the servo connects to
+int pos = 0; // Var to keep track of the servo's position
+int posBase = 20; // Var to keep track of servo's starting position
 
 void setup() {
-  
+    myServo.attach(servoPin); // Tell the servo to what pin it's connected to
+    Serial.begin(9600);
 }
 
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
-}
+void loop() {
+    for (pos = posBase; pos < 140; pos += 1) { // Loop, pos is added to (from posBase to 140)
+    myServo.write(pos); // Turn the servo to the position in pos
+    delay(15); // Wait 15ms
+    Serial.println(pos);
+    }
+    for (pos = 140; pos >= 20; pos -= 1) { // Loop, pos is added to (from 140 to posBase)
+        myServo.write(pos); // Turn the servo to the position in pos
+        delay(15); // Wait 15ms
+        Serial.println(pos);
+        if (pos == posBase) {
+            posBase += 20;
+            if (posBase > 130) {
+                posBase = 20;
+            }
+        }
+    }
+}        
                                 </code>
                             </pre>
                         </div>
@@ -465,34 +461,31 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
-}
+vo#include <Servo.h>
+        
+Servo myServo; // Declare a servo object for us to control
+int servoPin = 9; // Var for the pin the servo connects to
+int pos = 0; // Var to keep track of the servo's position
+int buttonPinL = 3; // Var for the pin of the left button
+int buttonPinR = 2; // Var for the pin of the right button
 
 void setup() {
-  
+    Serial.begin(9600);
+    myServo.attach(servoPin); // Tell the servo to what pin it's connected to
+    pinMode(buttonPinL, INPUT); // Set the left button pin to input
+    pinMode(buttonPinR, INPUT); // Set the right button pin to input
 }
 
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
+void loop() {
+    if (digitalRead(buttonPinL) == HIGH) {
+        myServo.write(20);
+        Serial.println("Going 20");
+    } else if (digitalRead(buttonPinR) == HIGH) {
+        myServo.write(140);
+        Serial.println("Going 140");
+    } else {
+        Serial.println("No button pressed");
+    }
 }
                                 </code>
                             </pre>
@@ -518,34 +511,184 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
-}
+#define NOTE_B0  31
+#define NOTE_C1  33
+#define NOTE_CS1 35
+#define NOTE_D1  37
+#define NOTE_DS1 39
+#define NOTE_E1  41
+#define NOTE_F1  44
+#define NOTE_FS1 46
+#define NOTE_G1  49
+#define NOTE_GS1 52
+#define NOTE_A1  55
+#define NOTE_AS1 58
+#define NOTE_B1  62
+#define NOTE_C2  65
+#define NOTE_CS2 69
+#define NOTE_D2  73
+#define NOTE_DS2 78
+#define NOTE_E2  82
+#define NOTE_F2  87
+#define NOTE_FS2 93
+#define NOTE_G2  98
+#define NOTE_GS2 104
+#define NOTE_A2  110
+#define NOTE_AS2 117
+#define NOTE_B2  123
+#define NOTE_C3  131
+#define NOTE_CS3 139
+#define NOTE_D3  147
+#define NOTE_DS3 156
+#define NOTE_E3  165
+#define NOTE_F3  175
+#define NOTE_FS3 185
+#define NOTE_G3  196
+#define NOTE_GS3 208
+#define NOTE_A3  220
+#define NOTE_AS3 233
+#define NOTE_B3  247
+#define NOTE_C4  262
+#define NOTE_CS4 277
+#define NOTE_D4  294
+#define NOTE_DS4 311
+#define NOTE_E4  330
+#define NOTE_F4  349
+#define NOTE_FS4 370
+#define NOTE_G4  392
+#define NOTE_GS4 415
+#define NOTE_A4  440
+#define NOTE_AS4 466
+#define NOTE_B4  494
+#define NOTE_C5  523
+#define NOTE_CS5 554
+#define NOTE_D5  587
+#define NOTE_DS5 622
+#define NOTE_E5  659
+#define NOTE_F5  698
+#define NOTE_FS5 740
+#define NOTE_G5  784
+#define NOTE_GS5 831
+#define NOTE_A5  880
+#define NOTE_AS5 932
+#define NOTE_B5  988
+#define NOTE_C6  1047
+#define NOTE_CS6 1109
+#define NOTE_D6  1175
+#define NOTE_DS6 1245
+#define NOTE_E6  1319
+#define NOTE_F6  1397
+#define NOTE_FS6 1480
+#define NOTE_G6  1568
+#define NOTE_GS6 1661
+#define NOTE_A6  1760
+#define NOTE_AS6 1865
+#define NOTE_B6  1976
+#define NOTE_C7  2093
+#define NOTE_CS7 2217
+#define NOTE_D7  2349
+#define NOTE_DS7 2489
+#define NOTE_E7  2637
+#define NOTE_F7  2794
+#define NOTE_FS7 2960
+#define NOTE_G7  3136
+#define NOTE_GS7 3322
+#define NOTE_A7  3520
+#define NOTE_AS7 3729
+#define NOTE_B7  3951
+#define NOTE_C8  4186
+#define NOTE_CS8 4435
+#define NOTE_D8  4699
+#define NOTE_DS8 4978
 
+int speakerPin = 8;
 void setup() {
-  
+ pinMode(speakerPin, OUTPUT);
 }
-
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
+void loop() {
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250); // wait 250 ms
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 294Hz for 200ms
+    delay(250); // wait 250 ms
+    tone(speakerPin, NOTE_D3, 200);
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_F3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_F3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_F3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_F3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_F3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_F3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_E3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_D3, 200); // plays a tone of 262Hz for 200ms
+    delay(250);
+    tone(speakerPin, NOTE_C3, 200); // plays a tone of 262Hz for 200ms
 }
                                 </code>
                             </pre>
@@ -571,35 +714,174 @@ void draw() {
                         <div class="card-body">
                             <pre class="pre-scrollable">
                                 <code>
-void settings() {
-  size(640, 480, P2D);
+#include "I2Cdev.h"
+#include "MPU6050_6Axis_MotionApps20.h"
+#include "Wire.h"
+
+MPU6050 mpu;
+
+int LED_PIN  = 13;
+int soundPin = 8;
+bool blinkState = false;
+
+// MPU control/status vars
+bool dmpReady = false;  // set true if DMP init was successful
+uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
+uint8_t devStatus;      // return status after each device operation (0 = success, !0 = error)
+uint16_t packetSize;    // expected DMP packet size (default is 42 bytes)
+uint16_t fifoCount;     // count of all bytes currently in FIFO
+uint8_t fifoBuffer[64]; // FIFO storage buffer
+
+// orientation/motion vars
+Quaternion q;           // [w, x, y, z]         quaternion container
+VectorFloat gravity;    // [x, y, z]            gravity vector
+float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
+
+// ================================================================
+// ===               INTERRUPT DETECTION ROUTINE                ===
+// ================================================================
+
+volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
+void dmpDataReady() {
+    mpuInterrupt = true;
 }
+
+
+// ================================================================
+// ===                      INITIAL SETUP                       ===
+// ================================================================
 
 void setup() {
-  
+    Wire.begin();
+
+    Serial.begin(115200);
+    while (!Serial); // wait for Leonardo enumeration, others continue immediately
+
+    // initialize device
+    Serial.println("Initializing I2C devices...");
+    mpu.initialize();
+
+    // verify connection
+    Serial.println("Testing device connections...");
+    Serial.println(mpu.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
+
+    // load and configure the DMP
+    Serial.println("Initializing DMP...");
+    devStatus = mpu.dmpInitialize();
+
+    // supply your own gyro offsets here
+    Serial.println("setting offsets");
+    mpu.setXAccelOffset(-1747); // alter this offset for your accelerometer X
+    mpu.setYAccelOffset(-2407); // alter this offset for your accelerometer Y
+    mpu.setZAccelOffset(1564); // alter this offset for your accelerometer Z
+    mpu.setXGyroOffset(59);    // alter this offset for your gyroscoop X
+    mpu.setYGyroOffset(40);     // alter this offset for your gyroscoop Y
+    mpu.setZGyroOffset(35);    // alter this offset for your gyroscoop Z
+    
+    
+    // make sure it worked (returns 0 if so)
+    if (devStatus == 0) {
+        // turn on the DMP, now that it's ready
+        Serial.println("Enabling DMP...");
+        mpu.setDMPEnabled(true);
+
+        // enable Arduino interrupt detection
+        Serial.println("Enabling interrupt detection (Arduino external interrupt 0)...");
+        attachInterrupt(0, dmpDataReady, RISING);
+        mpuIntStatus = mpu.getIntStatus();
+
+        // set our DMP Ready flag so the main loop() function knows it's okay to use it
+        Serial.println(F("DMP ready! Waiting for first interrupt..."));
+        dmpReady = true;
+
+        // get expected DMP packet size for later comparison
+        packetSize = mpu.dmpGetFIFOPacketSize();
+    } else {
+        // ERROR!
+        // 1 = initial memory load failed
+        // 2 = DMP configuration updates failed
+        // (if it's going to break, usually the code will be 1)
+        Serial.print("DMP Initialization failed (code ");
+        Serial.print(devStatus);
+        Serial.println(")");
+    }
+
+    // configure LED for output
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(soundPin, OUTPUT);
 }
 
-void draw() {
-  //first circle
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(width/2, height/2, width/2, height/2);
-  
-  //second circle
-  noStroke();
-  fill(255, 0, 0);
-  ellipse(100, 100, 70,70);  
-  
-  //third circle
-  stroke(255,255, 0);
-  fill(0, 255, 0);
-  ellipse(400, 300, 150, 70);
-  
-  //fourth circle
-  stroke(0, 0, 255);
-  fill(255, 0, 255);
-  ellipse(300, 150, 250, 190);
-}
+
+
+// ================================================================
+// ===                    MAIN PROGRAM LOOP                     ===
+// ================================================================
+
+void loop() {
+    // if programming failed, don't try to do anything
+    if (!dmpReady) return;
+
+    // wait for MPU interrupt or extra packet(s) available
+    while (!mpuInterrupt && fifoCount < packetSize) {
+        // other program behavior stuff here
+        // .
+        // .
+        // .
+        // if you are really paranoid you can frequently test in between other
+        // stuff to see if mpuInterrupt is true, and if so, "break;" from the
+        // while() loop to immediately process the MPU data
+        // .
+        // .
+        // .
+    }
+
+    // reset interrupt flag and get INT_STATUS byte
+    mpuInterrupt = false;
+    mpuIntStatus = mpu.getIntStatus();
+
+    // get current FIFO count
+    fifoCount = mpu.getFIFOCount();
+
+    // check for overflow (this should never happen unless our code is too inefficient)
+    if ((mpuIntStatus & 0x10) || fifoCount == 1024) {
+        // reset so we can continue cleanly
+        mpu.resetFIFO();
+        Serial.println("FIFO overflow!");
+
+    // otherwise, check for DMP data ready interrupt (this should happen frequently)
+    } else if (mpuIntStatus & 0x02) {
+        // wait for correct available data length, should be a VERY short wait
+        while (fifoCount < packetSize) 
+            fifoCount = mpu.getFIFOCount();
+        mpu.getFIFOBytes(fifoBuffer, packetSize);
+        fifoCount -= packetSize;
+
+
+        // display Yaw, Pitch, Roll angles in degrees
+        mpu.dmpGetQuaternion(&q, fifoBuffer);
+        mpu.dmpGetGravity(&gravity, &q);
+        mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
+        Serial.print("ypr\t");
+        Serial.print(ypr[0] * 180/M_PI);
+        Serial.print("\t");
+        Serial.print(ypr[1] * 180/M_PI);
+        Serial.print("\t");
+        Serial.println(ypr[2] * 180/M_PI);
+
+        if (ypr[1] * 180/M_PI > -2 && ypr[1] * 180/M_PI < 2) {
+            if (ypr[2] * 180/M_PI > -2 && ypr[2] * 180/M_PI < 2) {
+            tone(soundPin, 1000);
+            }
+        } else {
+            noTone(soundPin);
+        }
+        
+
+        // blink LED to indicate activity
+        blinkState = !blinkState;
+        digitalWrite(LED_PIN, blinkState);
+    }
+                                        
                                 </code>
                             </pre>
                         </div>
