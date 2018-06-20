@@ -17,7 +17,7 @@ body {
     margin-bottom: 10px;
 }
 
-.card > .card-img-bottom {
+.card img {
     max-width: 90%;
     margin: 0 5% 1%;
     border-radius: 3%;
